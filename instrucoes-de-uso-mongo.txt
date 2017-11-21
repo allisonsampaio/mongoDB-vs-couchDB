@@ -17,3 +17,16 @@ db.meuBanco.findOne({age:21}) // consulta através de um atributo
 Todos os comandos: https://docs.mongodb.com/manual/reference/method/
 
 Comandos de replicação: https://docs.mongodb.com/manual/reference/method/js-replication/
+
+
+
+
+#atualização
+
+inserir documentos JSON 
+abrir o servidos do mongodb
+abrir o terminal DO WINDOWS
+navegar até a pasta bin do mongo
+importar dados de um arquivo JSON: mongoimport -d meuBanco -c minhaColecao arquivo.json
+acessar o mongo através: mongo
+fazer consulta para conferir a inserção: db.meuBanco.findOne({})
