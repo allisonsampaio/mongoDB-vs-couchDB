@@ -1,0 +1,9 @@
+\\ replicação
+
+jmeter
+
+quanto ele aguenta de acesso
+
+teste de stress
+
+stress test mongodb
