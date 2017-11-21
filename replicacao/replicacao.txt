@@ -1,0 +1,41 @@
+Replicação
+
+Um conjunto de réplicas no MongoDB é um grupo de processos que mantêm o mesmo conjunto de dados. Os conjuntos de réplicas fornecem redundância e alta disponibilidade e são a base para todas as implementações de produção. Esta seção apresenta replicação no MongoDB, bem como os componentes e a arquitetura dos conjuntos de réplicas. A seção também fornece tutoriais para tarefas comuns relacionadas a conjuntos de réplicas.
+
+Redundância e disponibilidade de dados 
+
+A replicação fornece redundância e aumenta a disponibilidade de dados. Com várias cópias de dados em diferentes servidores de banco de dados, a replicação fornece um nível de tolerância a falhas contra a perda de um único servidor de banco de dados.
+
+Em alguns casos, a replicação pode fornecer maior capacidade de leitura, pois os clientes podem enviar operações de leitura para servidores diferentes. A manutenção de cópias de dados em diferentes centros de dados pode aumentar a localidade de dados e a disponibilidade para aplicativos distribuídos. Você também pode manter cópias adicionais para fins dedicados, como recuperação de desastres, relatórios ou backup.
+
+Replicação em MongoDB 
+
+Um conjunto de réplicas é um grupo que mantêm o mesmo conjunto de dados. Um conjunto de réplicas contém vários nós de suporte de dados e, opcionalmente, um nó de árbitro. Dos nós portadores de dados, um e um único membro é considerado o nó primário, enquanto os outros nós são considerados nós secundários.
+
+O nó primário recebe todas as operações de gravação. Um conjunto de réplicas pode ter apenas um primário capaz de confirmar escritas com preocupação de escrita; embora em algumas circunstâncias, outra instância de mongo pode acreditar transientemente também ser primária. [1] Os registros primários alteram todos os seus conjuntos de dados em seu log de operações, ou seja, oplog . Para obter mais informações sobre a operação do nó primário, consulte Replica Set Primary .{ w: "majority" }
+
+Os secundários replicam o oplog do primário e aplicam as operações aos seus conjuntos de dados, de modo que os conjuntos de dados dos secundários refletem o conjunto de dados do primário. Se o primário não estiver disponível, um secundário elegível realizará uma eleição para se eleger o novo primário. Para obter mais informações sobre membros secundários, consulte Replica Set Secondary Members .
+
+Você pode adicionar uma mongodinstância extra a um conjunto de réplicas como árbitro . Os arbitrários não mantêm um conjunto de dados. A finalidade de um árbitro é manter um quorum em uma réplica configurada respondendo aos pulsos de coração e às solicitações de eleição por outros membros do conjunto de réplicas. Como eles não armazenam um conjunto de dados, os árbitros podem ser uma boa maneira de fornecer a funcionalidade de quorum do conjunto de réplicas com um custo de recursos mais barato do que um membro de conjunto de réplicas totalmente funcional com um conjunto de dados. Se o seu conjunto de réplicas tiver um número par de membros, adicione um árbitro para obter a maioria dos votos em uma eleição para o primário. Arbitros não requerem hardware dedicado. Para obter mais informações sobre árbitros, consulte Replica Set Arbiter .
+
+Um árbitro sempre será um árbitro, enquanto um primário pode diminuir e se tornar um secundário e um secundário pode se tornar o primário durante uma eleição.
+
+Os secundários aplicam operações do primário de forma assíncrona. Ao aplicar as operações após o primário, os conjuntos podem continuar a funcionar apesar do fracasso de um ou mais membros. Para obter mais informações sobre a mecânica de replicação, consulte Replica Set Oplog e Replica Set Data Synchronization.
+
+Failover automático 
+
+Quando um primário não se comunica com os outros membros do conjunto por mais de 10 segundos, um secundário elegível realizará uma eleição para se eleger o novo primário. O primeiro secundário para realizar eleições e receber a maioria dos votos dos membros é primário.
+
+Novo na versão 3.2: o MongoDB introduz uma versão 1 do protocolo de replicação ( ) para reduzir o tempo de failover do conjunto de réplicas e acelera a detecção de múltiplas primárias simultâneas. Novos conjuntos de réplicas, por padrão, serão usados . As versões anteriores do MongoDB usam a versão 0 do protocolo.protocolVersion: 1protocolVersion: 1
+
+Embora o tempo varie, o processo de failover geralmente se completa em um minuto. Por exemplo, pode levar 10-30 segundos para os membros de um conjunto de réplicas declarar um inacessível primário (ver electionTimeoutMillis). Um dos restantes secundários detém uma eleição para se eleger como novo primário. A eleição em si pode demorar mais 10 a 30 segundos.
+
+Ler Operações 
+
+Por padrão, os clientes lêem o primário [1] ; no entanto, os clientes podem especificar uma preferência de leitura para enviar operações de leitura para secundários. A replicação assíncrona para secundários significa que as leituras dos secundários podem retornar dados que não refletem o estado dos dados no primário. Para obter informações sobre a leitura de conjuntos de réplicas, consulte Preferência de leitura .
+
+No MongoDB, os clientes podem ver os resultados das escritas antes que as escrituras sejam duráveis :
+
+Independentemente da preocupação com a escrita , outros clientes que usam "local"(ou seja, o padrão) readConcern podem ver o resultado de uma operação de gravação antes que a operação de gravação seja reconhecida ao cliente emissor.
+Os clientes que utilizam "local"(ou seja, o padrão) readConcern podem ler dados que podem ser posteriormente revertidos .
+
