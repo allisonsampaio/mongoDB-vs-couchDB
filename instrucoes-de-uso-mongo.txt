@@ -1,0 +1,19 @@
+MongoDB
+
+Abrir o servidor do mongo para utilizar o shell
+C:\Program Files\MongoDB\Server\3.4\bin\mongod.exe
+
+Abrir o shell
+C:\Program Files\MongoDB\Server\3.4\bin\mongo.exe
+
+show dbs //para mostrar os bancos de dados já criados
+
+use meuBanco //selecionar o banco que irá usar
+
+db.meuBanco.insert({ name:"allison", age:21, city:"Campo Mourao"}) // inserção no banco
+
+db.meuBanco.findOne({age:21}) // consulta através de um atributo
+
+Todos os comandos: https://docs.mongodb.com/manual/reference/method/
+
+Comandos de replicação: https://docs.mongodb.com/manual/reference/method/js-replication/
