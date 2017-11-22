@@ -1,0 +1,271 @@
+\documentclass[12pt]{article}
+
+\usepackage{sbc-template}
+
+\usepackage{graphicx,url}
+
+\usepackage[brazil]{babel}   
+%\usepackage[latin1]{inputenc}  
+\usepackage[utf8]{inputenc}  
+% UTF-8 encoding is recommended by ShareLaTex
+
+     
+\sloppy
+
+\title{Performace de Query e Escalabilidade no NoSQL:\\ MongoDB vs CouchDB}
+
+\author{Allison Alfredo de Oliveira Sampaio\inst{1}, Mara Luci Leite Goulart\inst{2} }
+
+
+\address{Departamento de Ciência da Computaç?o -- Universidade Tecnológica Federal do Paraná
+  (UTFPR)\\
+  R. Rosalina Maria Ferreira, 1233 -- Vila Carola, Campo Mour?o -- PR, 87301-899
+\nextinstitute
+  Departamento de Ciência da Computaç?o -- Universidade Tecnológica Federal do Paraná\\
+  Campo Mour?o, PR, Brasil
+  \email{\{maragoulart@alunos.utfpr.edu.br}
+}
+
+\begin{document} 
+
+\maketitle
+
+\begin{abstract}
+  This meta-paper describes the style to be used in articles and short papers
+  for SBC conferences. For papers in English, you should add just an abstract
+  while for the papers in Portuguese, we also ask for an abstract in
+  Portuguese (``resumo''). In both cases, abstracts should not have more than
+  10 lines and must be in the first page of the paper.
+\end{abstract}
+     
+\begin{resumo} 
+  Este meta-artigo descreve o estilo a ser usado na confecç?o de artigos e
+  resumos de artigos para publicaç?o nos anais das conferências organizadas
+  pela SBC. É solicitada a escrita de resumo e abstract apenas para os artigos
+  escritos em português. Artigos em inglês dever?o apresentar apenas abstract.
+  Nos dois casos, o autor deve tomar cuidado para que o resumo (e o abstract)
+  n?o ultrapassem 10 linhas cada, sendo que ambos devem estar na primeira
+  página do artigo.
+\end{resumo}
+
+
+\section{Introduç?o}
+
+O termo NoSQL foi primeiramente utilizado em 1998 como o nome de um banco de dados n?o relacional de código aberto, sendo criado n?o com o objetivo de substituir o Modelo Relacional e sim de servir como uma alternativa para  atender  casos  onde  haja  necessidade  de  uma  maior  flexibilidade  e distribuiç?o  dos  dados. Um  dos  principais  fatores  que  favoreceram  seu surgimento foi a natureza dos dados da Internet, a importância de se atingir altos graus no processamento de grandes volumes de dados e a distribuiç?o de  sistemas  em  escala  global. Os bancos de dados NoSQL possuem diversas categorias, para o presente estudo foi escolhida a categoria
+de bancos de dados orientado a documentos, dois clientes conhecidos s?o o MongoDB e o CouchDB.
+O CouchDB é um banco de dados de documentos flexível, que suporta JSON e preza pela consistência de
+dados.
+O MongoDB é um banco de dados n?o relacional, e utiliza BJSON para armazenar dados. Possui um
+significativo suporte de query e índices, o que permite um acesso rápido a grandes plataformas de dados.
+O Mongo pode acessar dez vezes mais rápido os dados de uma plataforma que excede 50GB do que um
+banco de dados SQL.
+
+\section{Objetivo} \label{sec:firstpage}
+
+O objetivo do trabalho é realizar uma pesquisa com banco de dados NoSQL pré-selecionados para estudo e comparaç?o, selecionando os bancos estudados para o
+desenvolvimento de uma aplicaç?o para manipular dados armazenados nestes bancos.
+\section{Conceitos}
+
+Em meados dos anos 60 foi introduzido o termo banco de dados que serviria para armazenar
+informaç?es, uma camada de suporte para os sistemas de informaç?es. O conceito de separar
+aplicaç?es dos dados era novo e abria possibilidades para aumentar a robustez das aplicaç?es. Em
+1970 Edgar Codd propos o modelo relacional que substituiu os modelos hierárquicos e de rede da
+época, o modelo de Codd tornou-se base para o uso de SQL que permite que os dados sejam
+armazenados em tabelas.
+Por volta dos anos 2000, as aplicaç?es começaram a produzir um vasto volume de dados por
+meio de de aplicaç?es complexas.
+Segundo \cite{juravich:12} ,  termo NoSQL n?o é a abreviaç?o de ?no SQLµ ? sem SQL, significa ?not only SQLµ, n?o
+apenas SQL, bancos de dados NoSQL s?o soluç?es de persistência de dados que n?o seguem o
+modelo relacional e n?o utiliza SQL para querying.
+A primeira característica que faz os bancos de dados NoSQL diferente é a sua estrutura de
+dados. Dentre as estruturas disponíveis, há a orientada a documentos, que salva os itens sem serem
+estruturados em um esquema. Essa estrutura de dados é remanescente de um array associativo em
+PHP.
+\cite{juravich:12} acrescenta  que o NoSQL deve ser utilizado quando o esquema e a estrutura dos dados mudam
+constantemente.
+
+\subsection{CouchDB}
+
+O CouchDB utiliza uma API HTTP/REST para a manipulaç?o dos dados, portanto a
+comunicaç?o entre entre cliente e servidor pode ser realizada em qualquer aplicaç?o que
+possa comunicar-se por HTTP. As operaç?es básicas de um banco de dados s?o mapeadas
+para as operaç?es do protocolo HTTP, como GET, PUT, POS T, DELETE, para ler,
+armazenar, substituir e remover objetos armazenados \cite{juravich:12}.
+Além da API REST/HTTP que provê acesso a qualquer aplicaç?o com suporte ao
+protocolo HTTP, o CouchDB oferece um servidor web, chamado Futon, que pode ser
+acessado pelo browser através do endereço /localhost 5984/ utils/, onde é possível
+gerenciar os bancos e documentos individualmente.
+A arquitetura do CouchDB consiste em um servidor de banco de dados master que
+possui um ou mais bancos de dados criados. Os bancos s?o compostos por objetos, que s?o
+documentos do tipo JSON, de esquema livre, ou seja, em uma mesma base de dados os
+documento n?o precisam ter os mesmos campos. Entretanto, recomenda-se armazenar
+documentos semelhantes em um mesmo banco de dados \cite{redmond:12}.
+CouchDB suporta múltiplas réplicas do banco de dados rodando em diferentes
+servidores e fornece um mecanismo para sincronizaç?o destes dados. Há um processo,
+replicador, executando que possibilita informar a origem e o destino do servidor, é realizada
+uma verificaç?o pela data e caso houve mudanças, a cópia é sobrescrito no servidor slave.
+As replicaç?es s?o realizadas de forma assíncrona, de forma que n?o compromete a
+velocidade de escrita e leitura \cite{juravich:12}.
+Dentre as principais características do CouchDB, est?o:
+ \begin{description}
+   \item[a] Um servidor de banco de dados de documento, acessível via RESTful JSON API.
+   \item[b] Ad-hoc e esquema com um largo espaço de endereço.
+   \item[c] Queries feitas a partir do JavaScript.
+ \end{description}
+
+\subsection{MongoDB}
+
+
+O aplicativo MongoDB é composto por dois tipos de serviços, o processo servidor
+mongod que é o núcleo do banco de dados e o serviço mongos para autosharding. Sharding
+é a divis?o dos dados em vários nós, sendo utilizado quando faz-se necessário
+balanceamento de carga . O processo servidor pode rodar tanto em arquiteturas 32 como 64-
+bit, no entanto, é recomendado o uso de 64-bit, uma vez que o tamanho máximo de um
+banco de dados é limitado à 2GB no modo 32-bit. Além dos serviços do aplicativo servidor,
+há também serviço cliente mongo, que é um cliente shell padr?o do MongoDB utilizado
+para conectar-se ao servidor através da porta 27017. Entretanto, há uma grande variedade de
+drivers oficiais disponíveis, como C, C++, Haskell, Java, PHP, entre outros, todos eles
+est?o sob a licença Apache \cite{redmond:12}.
+Também é possível conectar através da interface HTTP/REST
+na porta 28017, permitindo a manipulaç?o de entradas via HTTP.
+O servidor MongoDB pode hospedar mais de um banco de dados, independentes
+entre si, armazenados separadamente. Um banco de dados contém um uma ou mais coleç?es
+constituídas por documentos BSON (Binary JSON), que s?o estruturados como documentos
+JSON, com esquema dinâmico, fazendo com que a integraç?o de dados em certos tipos de
+aplicaç?es sejam mais fáceis e rápidos \cite{garret:16}.
+Os autores acrescentam que consultas s?o expressas em sintaxe como JSON e s?o enviadas ao servidor como
+objetos BSON pelo driver do banco de dados. O modelo permite consultas a todos os
+documentos dentro de uma coleç?o, incluindo objetos e matrizes incorporadas. MongoDB
+n?o possui transaç?es, tampouco joins, ficando a cargo do desenvolvedor implementá-las,
+se necessário, em uma aplicaç?o. É possível inclusive relacionar documentos de coleç?es
+distintas.
+Quanto aos recursos disponíveis, vale ressaltar o suporte automático para a
+realizaç?o de Sharding. O sistema de banco de dados pode ser distribuído através de um
+cluster de máquinas. O cluster consiste em três componentes, nós Shard, servidores de
+configuraç?o e serviços de roteamento chamados mongos. 
+Os nós Shard s?o responsáveis por armazenar os dados atuais, podendo inclusive ser
+replicados para redundância em caso de falha. Os servidores de configuraç?o s?o usados
+para armazenar os metadados e rotear informaç?o do cluster de MongoDB. Os Mongos s?o
+responsáveis por rotear os processos, otimizando o desempenho das tarefas requisitadas
+pelos clientes \cite{garret:16}.
+Outro recurso importante é o GridFS, que serve para armazenar e recuperar arquivos
+que excedam o limite de 16M dos documentos BSON. Os arquivos s?o divididos em partes
+e armazenados em uma coleç?o, em outra coleç?o s?o armazenados os metadados do
+arquivo. É útil para armazenar arquivos grandes, como áudio e vídeo \cite{redmond:12}.
+ 
+
+\section{Métodos de Avaliaç?o}
+
+O método de avaliaç?o do presente trabalho, será feito por meio do desenvolvimento de uma aplicaç?o web que armazenará um pacote de dados json de 74.5MB. 
+
+Analisaremos a velocidade
+de query e sua facilidade de uso, uma vez que bancos de dados NoSQL utilizam queries dinâmicas.
+Por exemplo, uma query SQL:
+\begin{verbatim}
+    
+SELECT * FROM posts
+INNER JOIN posts_tags ON posts.id = posts_tags.post_id
+INNER JOIN tags ON posts_tags.tag_id == tags.id
+WHERE tags.text = 'politics' AND posts.vote_count > 10;
+\end{verbatim}
+E uma query equivalente em MongoDB
+\begin{verbatim}
+db.posts.find({'tags': 'politics', 'vote_count': {'$gt': 10}});
+\end{verbatim}
+
+Aplicaremos um teste quanto a replicaç?o, partindo do princípio do que faz os bancos de dados
+orientados a documento únicos é a sua capacidade de lidar com documentos sem esquema definido em tabelas como noSQL.
+Eles possuem a capacidade de replicar suas coleç?es em diferentes servidores e performar queries em paralelo, se um
+servidor n?o está disponível ele faz requisiç?o para o próximo \cite{redmond:12}. Os autores acrescentam
+que no caso do CouchDB ele permite múltiplos mestres, já o Mongo considera como sua força principal a abilidade de lidar com um grande volume de dados e múltiplas requisiç?es por meio de replicaç?o e escala horizontal, uma vez que o bancos de dados relacionais utilizam  escala vertical.
+
+\subsection{Requerimentos do Sistema}
+O ambiente utilizado para a realizaç?o dos testes de desempenho possui um processador Intel Core i3 de sexta geraç?o, sendo a memória de 4GB e o sistema operacional Windows 10 64 bits.
+
+
+\item Notebook Inspiron 15 5000 i15-5566-A10P
+\item Sistema Operacional: Windows 10 Home Single Language x64
+\item Processador: Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz
+\item Memória (RAM): 4,00GB
+
+\subsection{Instalaç?o MongoDB e CouchDB}
+
+ \begin{itemize}
+O MongoDB é autônomo e n?o possui outras dependências do sistema. Você pode executar MongoDB a partir de qualquer pasta que você escolher. Você pode instalar o MongoDB em qualquer pasta (por exemplo D:\test\mongodb), conforme
+o tutorial do site do MongoDB \cite{}. 
+Quanto ao CouchDB nao ha qualquer pre-requisito extra para instalaçao sendo claro a documentacao presente no site do mesmo \cite{?}
+ 
+
+ 
+
+\section{Resultados}\label{sec:figs}
+
+O teste aplicado utilizou replicaçao passiva, ou seja, apenas um mestre
+e várias réplicas, o único que pode enviar requisiç?es é  mestre.
+
+\section{Conclus?o}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.5\textwidth]{fig1.jpg}
+\caption{A typical figure}
+\label{fig:exampleFig1}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=.3\textwidth]{fig2.jpg}
+\caption{This figure is an example of a figure caption taking more than one
+  line and justified considering margins mentioned in Section~\ref{sec:figs}.}
+\label{fig:exampleFig2}
+\end{figure}
+
+In tables, try to avoid the use of colored or shaded backgrounds, and avoid
+thick, doubled, or unnecessary framing lines. When reporting empirical data,
+do not use more decimal digits than warranted by their precision and
+reproducibility. Table caption must be placed before the table (see Table 1)
+and the font used must also be Helvetica, 10 point, boldface, with 6 points of
+space before and after each caption.
+
+\begin{table}[ht]
+\centering
+\caption{Variables to be considered on the evaluation of interaction
+  techniques}
+\label{tab:exTable1}
+\smallskip
+\begin{tabular}{|l|c|c|}
+\hline
+& Value 1 & Value 2\\[0.5ex]
+\hline
+&&\\[-2ex]
+Case 1 & 1.0 $\pm$ 0.1 & 1.75$\times$10$^{-5}$ $\pm$ 5$\times$10$^{-7}$\\[0.5ex]
+\hline
+&&\\[-2ex]
+Case 2 & 0.003(1) & 100.0\\[0.5ex]
+\hline
+\end{tabular}
+\end{table}
+
+\section{Images}
+
+All images and illustrations should be in black-and-white, or gray tones,
+excepting for the papers that will be electronically available (on CD-ROMs,
+internet, etc.). The image resolution on paper should be about 600 dpi for
+black-and-white images, and 150-300 dpi for grayscale images.  Do not include
+images with excessive resolution, as they may take hours to print, without any
+visible difference in the result. 
+
+\section{References}
+
+Bibliographic references must be unambiguous and uniform.  We recommend giving
+the author names references in brackets, e.g. \cite{juravich:12},
+\cite{garrett et all:16}, and \cite{redmond and wilson:16}.
+
+The references must be listed using 12 point font size, with 6 points of space
+before each reference. The first line of each reference should not be
+indented, while the subsequent should be indented by 0.5 cm.
+
+\bibliographystyle{sbc}
+\bibliography{sbc-template}
+
+\end{document}
