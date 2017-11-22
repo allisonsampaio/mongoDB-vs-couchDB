@@ -58,6 +58,7 @@ MongoDB
 CouchDB  
 Garret, D. (2016).Mongo in Action. Manning Publications, 1th edition.  
 Juravich, T. (2012).CouchDB and PHP Web Development. Packt Publishing, 1th edition.  
-Redmond,  E.  and  Wilson,  J.  R.  (2012).Seven  Databases  in  Seven  Weeks.   LLC,  1th edition.
+Redmond,  E.  and  Wilson,  J.  R.  (2012).Seven  Databases  in  Seven  Weeks.   LLC,  1th edition.  
+Jmitter
 
 
