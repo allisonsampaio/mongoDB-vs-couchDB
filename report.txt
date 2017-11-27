@@ -1,0 +1,44 @@
+After 10 seconds, 21589 new records inserted - collection has 95000 in total 
+1938 inserts per second since last report 99.75 % in under 50 milliseconds
+3962 keyqueries per second since last report 99.99 % in under 50 milliseconds
+2005 updates per second since last report 99.84 % in under 50 milliseconds
+0 rangequeries per second since last report 100.00 % in under 50 milliseconds
+
+------------------------
+After 20 seconds, 53985 new records inserted - collection has 122645 in total 
+3217 inserts per second since last report 99.86 % in under 50 milliseconds
+6421 keyqueries per second since last report 98.23 % in under 50 milliseconds
+3252 updates per second since last report 99.87 % in under 50 milliseconds
+0 rangequeries per second since last report 100.00 % in under 50 milliseconds
+
+------------------------
+After 30 seconds, 69511 new records inserted - collection has 142062 in total 
+1381 inserts per second since last report 98.92 % in under 50 milliseconds
+3139 keyqueries per second since last report 98.99 % in under 50 milliseconds
+1575 updates per second since last report 98.94 % in under 50 milliseconds
+0 rangequeries per second since last report 100.00 % in under 50 milliseconds
+
+##############################################################################
+After 10 seconds, 22952 new records inserted - collection has 95000 in total 
+1972 inserts per second since last report 99.92 % in under 50 milliseconds
+4002 keyqueries per second since last report 99.99 % in under 50 milliseconds
+2012 updates per second since last report 99.93 % in under 50 milliseconds
+0 rangequeries per second since last report 100.00 % in under 50 milliseconds
+
+------------------------
+After 20 seconds, 54050 new records inserted - collection has 122645 in total 
+3513 inserts per second since last report 99.97 % in under 50 milliseconds
+6785 keyqueries per second since last report 99.99 % in under 50 milliseconds
+3456 updates per second since last report 99.94 % in under 50 milliseconds
+0 rangequeries per second since last report 100.00 % in under 50 milliseconds
+
+------------------------
+After 30 seconds, 69511 new records inserted - collection has 142062 in total 
+1525 inserts per second since last report 99.92 % in under 50 milliseconds
+3243 keyqueries per second since last report 99.99 % in under 50 milliseconds
+1680 updates per second since last report 99.94 % in under 50 milliseconds
+0 rangequeries per second since last report 100.00 % in under 50 milliseconds
+
+500 usuários
+90% vs 92% memory
+
